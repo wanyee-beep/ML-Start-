@@ -7,5 +7,5 @@
 同时推荐一些自用的笔记软件，方便大家下载后阅读：[Obsidian](https://obsidian.md/)、[OneNote](https://onenote.cloud.microsoft/)、[Xmind](https://xmind.cn/)、[Typora](https://typora.io/)
 
 目前本人也在学习过程中，边学边整理，在建立好框架后会进行伪代码以及代码实现的整理。
-如果大家想要对本库进行贡献，抑或是一起学习，欢迎联系我~
+如果大家想要对本库进行贡献，抑或是一起学习交流，欢迎联系我~
 
