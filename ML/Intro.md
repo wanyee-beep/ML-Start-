@@ -62,13 +62,19 @@ date: 2024-05-20
 ## 7. 补充：泛化误差上界定理 (以二类分类为例)
 
 假设空间 $\mathcal{F} = \{f_1, f_2, \dots, f_d\}$ 是有限个函数组成的集合。对任意一个函数 $f \in \mathcal{F}$，至少以概率 $1-\delta \quad (0<\delta<1)$，以下不等式成立：
-$$ R(f) \le \hat{R}(f) + \varepsilon(d, N, \delta) $$
+$$ 
+R(f) \le \hat{R}(f) + \varepsilon(d, N, \delta)
+$$
 其中：
-$$ \varepsilon(d, N, \delta) = \sqrt{\frac{1}{2N} \left( \ln d + \ln \frac{1}{\delta} \right)} $$
+$$
+\varepsilon(d, N, \delta) = \sqrt{\frac{1}{2N} \left( \ln d + \ln \frac{1}{\delta} \right)}
+$$
 
 > [!info] 证明思路：利用 Hoeffding 不等式
 > 该上界通过 Hoeffding 不等式推导得出。不等式可写为：
-> $$ P(\exists f \in \mathcal{F}, \text{s.t. } |R(f) - \hat{R}(f)| > \varepsilon) \le 2|\mathcal{F}|e^{-2N\varepsilon^2} $$
+> $$ 
+> P(\exists f \in \mathcal{F}, \text{s.t. } |R(f) - \hat{R}(f)| > \varepsilon) \le 2|\mathcal{F}|e^{-2N\varepsilon^2} 
+> $$
 > *(注：$|\mathcal{F}|$ 为假设空间的大小，即 $d$；$N$ 为训练样本容量。样本量 $N$ 越大，误差上界越小。)*
 
 ---
@@ -79,12 +85,20 @@ $$ \varepsilon(d, N, \delta) = \sqrt{\frac{1}{2N} \left( \ln d + \ln \frac{1}{\d
 
 ### ① [[极大似然估计]] (Maximum Likelihood Estimation)
 1. **模型**：条件概率分布族，即所有可能的 $P(y|p)$ 的集合（$p \in [0,1]$）。
-   $$ \mathcal{F} = \{ P(y|p) = p^y(1-p)^{1-y} \mid p \in [0,1] \} $$
-2. **策略**：**经验风险最小化**（等价于最大似然函数）。对于 $n$ 个样本，有 $k$ 次结果为 1，似然函数为：
-   $$ L(p) = \prod_{i=1}^n P(y_i|p) = p^k(1-p)^{n-k} $$
-3. **算法**：求导等解析方法。为了方便计算，对似然函数取对数，再对 $p$ 求导并令其等于 0：
-   $$ \log L(p) = k \log p + (n-k) \log(1-p) $$
-   $$ \frac{d \log L(p)}{dp} = \frac{k}{p} - \frac{n-k}{1-p} = 0 $$
+$$ 
+\mathcal{F} = \{ P(y|p) = p^y(1-p)^{1-y} \mid p \in [0,1] \} 
+$$
+3. **策略**：**经验风险最小化**（等价于最大似然函数）。对于 $n$ 个样本，有 $k$ 次结果为 1，似然函数为：
+$$ 
+L(p) = \prod_{i=1}^n P(y_i|p) = p^k(1-p)^{n-k} 
+$$
+4. **算法**：求导等解析方法。为了方便计算，对似然函数取对数，再对 $p$ 求导并令其等于 0：
+$$
+\log L(p) = k \log p + (n-k) \log(1-p) 
+$$
+$$
+\frac{d \log L(p)}{dp} = \frac{k}{p} - \frac{n-k}{1-p} = 0 
+$$
    解得最优参数：$\hat{p} = \frac{k}{n}$ 
 
 ### ② [[贝叶斯估计]] (Bayesian Estimation)
@@ -95,8 +109,10 @@ $$ \varepsilon(d, N, \delta) = \sqrt{\frac{1}{2N} \left( \ln d + \ln \frac{1}{\d
 3. **算法**：解析方法求后验分布的期望（或最大值）。
    - 假设给 $p$ 加一个最简单的均匀先验分布，即 **$Beta(1, 1)$** 分布（拉普拉斯平滑）。
    - 经过贝叶斯公式推导后，得到最终估计求法公式：
-     $$ \hat{p} = \frac{k+1}{n+2} $$
-   - *(注：若采用更广义的 $Beta(\alpha, \beta)$ 作为先验，公式则为 $\frac{k+\alpha}{n+\alpha+\beta}$)*
+$$ 
+\hat{p} = \frac{k+1}{n+2}
+$$
+   - *(注：若采用更广义的 $Beta(\alpha, \beta)$ 作为先验，公式则为 $\frac{k+\alpha}{n+\alpha+\beta}$ )*
 
 ---
 
@@ -108,14 +124,24 @@ $$ \varepsilon(d, N, \delta) = \sqrt{\frac{1}{2N} \left( \ln d + \ln \frac{1}{\d
 1. 已知模型 $f: P(Y|X, \theta)$，其中 $\theta$ 为模型参数。
    对数损失函数定义为：$L(Y, P(Y|X, \theta)) = -\log P(Y|X, \theta)$
 2. 给定训练集 $T = \{(x_1, y_1), (x_2, y_2), \dots, (x_N, y_N)\}$，代入经验风险公式：
-   $$ R_{emp}(\theta) = \frac{1}{N} \sum_{i=1}^N L(y_i, P(y_i|x_i, \theta)) $$
-   $$ R_{emp}(\theta) = -\frac{1}{N} \sum_{i=1}^N \log P(y_i|x_i, \theta) $$
+$$
+R_{emp}(\theta) = \frac{1}{N} \sum_{i=1}^N L(y_i, P(y_i|x_i, \theta))
+$$
+$$ 
+R_{emp}(\theta) = -\frac{1}{N} \sum_{i=1}^N \log P(y_i|x_i, \theta)
+$$
 3. 另一方面，假设样本服从独立同分布 (i.i.d)，极大似然函数为：$L(\theta) = \prod_{i=1}^N P(y_i|x_i, \theta)$
    为方便求解取对数：$\log L(\theta) = \sum_{i=1}^N \log P(y_i|x_i, \theta)$
    极大似然估计的目标为：
-   $$ \arg\max_\theta \sum_{i=1}^N \log P(y_i|x_i, \theta) $$
+$$
+\arg\max_\theta \sum_{i=1}^N \log P(y_i|x_i, \theta)
+$$
 4. 根据经验风险最小化的目标：
-   $$ \arg\min_\theta R_{emp}(\theta) = \arg\min_\theta \left( -\frac{1}{N} \sum_{i=1}^N \log P(y_i|x_i, \theta) \right) $$
+$$
+\arg\min_\theta R_{emp}(\theta) = \arg\min_\theta \left( -\frac{1}{N} \sum_{i=1}^N \log P(y_i|x_i, \theta) \right)
+$$
    去掉常数 $-\frac{1}{N}$ 并将最小化负号转化为最大化，即等价于求解：
-   $$ \arg\max_\theta \sum_{i=1}^N \log P(y_i|x_i, \theta) $$
+$$ 
+\arg\max_\theta \sum_{i=1}^N \log P(y_i|x_i, \theta)
+$$
    两者目标函数完全一致。**得证。**
