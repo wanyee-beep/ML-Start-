@@ -4,4 +4,5 @@
 # 2. 排除以下文件/文件夹（即允许同步它们）
 !.gitignore
 !README.md
-!ML/
+!Machine Learning/
+!Deep Learning/
